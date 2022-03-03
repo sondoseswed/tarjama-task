@@ -10,7 +10,7 @@ const pool = new pg_1.Pool({
     database: config_1.default.database,
     user: config_1.default.user,
     password: config_1.default.password,
-    port: parseInt(config_1.default.dbPort, 18),
+    port: parseInt(config_1.default.dbPort, 10),
     max: 4,
 });
 pool.on('error', (error) => {

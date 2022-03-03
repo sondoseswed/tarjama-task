@@ -9,7 +9,6 @@ const helmet_1 = __importDefault(require("helmet"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 const config_1 = __importDefault(require("./config"));
-const database_1 = __importDefault(require("./database"));
 console.log(config_1.default);
 const PORT = config_1.default.port || 3000;
 //create instance from the server
@@ -43,18 +42,18 @@ app.post('/', (req, res) => {
     });
 });
 //test db
-database_1.default.connect().then((client) => {
-    return client
-        .query('SELECT NOW()')
-        .then((res) => {
-        client.release();
-        console.log(res.rows);
-    })
-        .catch(err => {
-        client.release();
-        console.log(err.stack);
-    });
-});
+//  db.connect().then((client) => {
+//      return client
+//      .query('SELECT NOW()')
+//      .then((res)=>{
+//          client.release();
+//          console.log(res.rows);
+//      })
+//      .catch(err =>{
+//          client.release();
+//          console.log(err.stack);
+//      });
+//  });
 app.use(error_middleware_1.default);
 app.use((_req, res) => {
     res.status(404).json({

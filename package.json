@@ -9,7 +9,9 @@
     "start": "npm run build & node dist/index.js",
     "format": "prettier --write src/index.ts",
     "lint": "eslint src/index.ts",
-    "lint-fix": "eslint src/index.ts --fix"
+    "lint-fix": "eslint src/index.ts --fix",
+    "migration:run":"db-migrate up",
+    "migration:stop":"db-migrate down"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,8 @@
   "dependencies": {
     "@types/morgan": "^1.9.3",
     "add": "^2.0.6",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",

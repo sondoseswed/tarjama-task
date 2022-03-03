@@ -44,18 +44,18 @@ app.post('/', (req:Request,res:Response)=> {
     });
 });
  //test db
- db.connect().then((client) => {
-     return client
-     .query('SELECT NOW()')
-     .then((res)=>{
-         client.release();
-         console.log(res.rows);
-     })
-     .catch(err =>{
-         client.release();
-         console.log(err.stack);
-     });
- });
+//  db.connect().then((client) => {
+//      return client
+//      .query('SELECT NOW()')
+//      .then((res)=>{
+//          client.release();
+//          console.log(res.rows);
+//      })
+//      .catch(err =>{
+//          client.release();
+//          console.log(err.stack);
+//      });
+//  });
 
 
 app.use(errorMiddleware);
