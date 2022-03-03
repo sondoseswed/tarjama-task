@@ -1,1 +1,3 @@
-console.log("Hello World ahmad!")
+console.log('Hii Sondos')
+
+let number
