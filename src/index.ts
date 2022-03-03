@@ -1,7 +1,9 @@
 import express, { Application ,Request, Response} from "express";
 import morgan from 'morgan';
 import helmat from 'helmet';
-import { rateLimit } from "express-rate-limit";
+import RateLimit from "express-rate-limit";
+import errorMiddleware from "./middleware/error.middleware";
+ 
 
 const PORT = 3000;
 
@@ -15,7 +17,7 @@ app.use(morgan('common'));
 app.use(helmat());
 // Apply the rate limitimng middleware off requests
 app.use(
-rateLimit({
+    RateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
@@ -26,6 +28,7 @@ rateLimit({
 
 //Add routing for Path
 app.get('/', (req:Request,res:Response)=> {
+    throw new Error ('Error exist');
     res.json({
         message:"Hello World!",
     });
@@ -37,7 +40,14 @@ app.post('/', (req:Request,res:Response)=> {
         data: req.body,
     });
 });
+ 
+app.use(errorMiddleware);
 
+app.use((_req: Request, res: Response)=> {
+    res.status(404).json({
+        message:"you are lost , read the API doc to find the API",
+    });
+});
 //start express server
 app.listen(PORT, () => {
   console.log(`Server is starting at port :${PORT}`);
