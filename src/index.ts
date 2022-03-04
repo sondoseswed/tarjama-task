@@ -5,6 +5,7 @@ import RateLimit from "express-rate-limit";
 import errorMiddleware from "./middleware/error.middleware";
 import config from './config';
 import db from './database';
+import routes from './routes';
 
 console.log(config);
 
@@ -30,19 +31,19 @@ app.use(
 );
 
 //Add routing for Path
-app.get('/', (req:Request,res:Response)=> {
-    throw new Error ('Error exist');
-    res.json({
-        message:"Hello World!",
-    });
-});
-//POST Request
-app.post('/', (req:Request,res:Response)=> {
-    res.json({
-        message:"Hello World from post",
-        data: req.body,
-    });
-});
+// app.get('/', (req:Request,res:Response)=> {
+//     throw new Error ('Error exist');
+//     res.json({
+//         message:"Hello World!",
+//     });
+// });
+// //POST Request
+// app.post('/', (req:Request,res:Response)=> {
+//     res.json({
+//         message:"Hello World from post",
+//         data: req.body,
+//     });
+// });
  //test db
 //  db.connect().then((client) => {
 //      return client
@@ -59,7 +60,7 @@ app.post('/', (req:Request,res:Response)=> {
 
 
 app.use(errorMiddleware);
-
+app.use('/api',routes);
 app.use((_req: Request, res: Response)=> {
     res.status(404).json({
         message:"you are lost , read the API doc to find the API",

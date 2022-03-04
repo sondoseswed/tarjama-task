@@ -9,6 +9,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 const config_1 = __importDefault(require("./config"));
+const routes_1 = __importDefault(require("./routes"));
 console.log(config_1.default);
 const PORT = config_1.default.port || 3000;
 //create instance from the server
@@ -28,19 +29,19 @@ app.use((0, express_rate_limit_1.default)({
     message: "Too many requests from this IP , Plerase try again after an hour"
 }));
 //Add routing for Path
-app.get('/', (req, res) => {
-    throw new Error('Error exist');
-    res.json({
-        message: "Hello World!",
-    });
-});
-//POST Request
-app.post('/', (req, res) => {
-    res.json({
-        message: "Hello World from post",
-        data: req.body,
-    });
-});
+// app.get('/', (req:Request,res:Response)=> {
+//     throw new Error ('Error exist');
+//     res.json({
+//         message:"Hello World!",
+//     });
+// });
+// //POST Request
+// app.post('/', (req:Request,res:Response)=> {
+//     res.json({
+//         message:"Hello World from post",
+//         data: req.body,
+//     });
+// });
 //test db
 //  db.connect().then((client) => {
 //      return client
@@ -55,6 +56,7 @@ app.post('/', (req, res) => {
 //      });
 //  });
 app.use(error_middleware_1.default);
+app.use('/api', routes_1.default);
 app.use((_req, res) => {
     res.status(404).json({
         message: "you are lost , read the API doc to find the API",
